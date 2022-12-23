@@ -1,0 +1,17 @@
+1 - Install JDK
+
+Download and install JDK from the following web site 
+
+https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html
+
+Jdk 11 is recommended for Spark Scala
+
+
+After the installation, check via terminal
+
+2 - Download IDEA 
+
+Download and install idea community edition from here : 
+
+
+https://www.jetbrains.com/idea/download
