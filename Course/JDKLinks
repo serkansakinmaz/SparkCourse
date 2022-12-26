@@ -15,3 +15,10 @@ Download and install idea community edition from here :
 
 
 https://www.jetbrains.com/idea/download
+
+
+3 - Maven Project
+
+GroupId:net.alchim31.maven
+ArtifactId:scala-archetype-simple
+Version:1.7
