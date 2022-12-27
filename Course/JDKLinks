@@ -22,3 +22,10 @@ https://www.jetbrains.com/idea/download
 GroupId:net.alchim31.maven
 ArtifactId:scala-archetype-simple
 Version:1.7
+
+
+    val spark = SparkSession.builder().master("local").appName("SparExample").getOrCreate();
+    val rdd = spark.sparkContext.textFile("/Users/serkan/Desktop/Course/Spark/data/foo");
+
+    println("Count : " + rdd.count())
+    println("First : " + rdd.first())
