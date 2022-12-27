@@ -33,3 +33,15 @@ Version:1.7
 
 
  --add-exports java.base/sun.nio.ch=ALL-UNNAMED
+ 
+ 
+ --Winutils
+ https://github.com/steveloughran/winutils/blob/master/hadoop-2.7.1/bin/winutils.exe
+ 
+ --Environment variable
+ HADOOP_HOME	C:\winutil\
+ 
+ 
+ 
+ 
+ 
