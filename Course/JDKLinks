@@ -38,6 +38,8 @@ Version:1.7
  --Winutils
  https://github.com/steveloughran/winutils/blob/master/hadoop-2.7.1/bin/winutils.exe
  
+ https://github.com/steveloughran/winutils
+ 
  --Environment variable
  HADOOP_HOME	C:\winutil\
  
