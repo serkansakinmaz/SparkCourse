@@ -40,6 +40,8 @@ Version:1.7
  
  https://github.com/steveloughran/winutils
  
+ https://sparkbyexamples.com/spark/apache-spark-installation-on-windows/
+ 
  --Environment variable
  HADOOP_HOME	C:\winutil\
  
