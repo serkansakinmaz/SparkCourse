@@ -45,7 +45,7 @@ Version:1.7
  https://adaickalavan.github.io/spark/scala/setting-up-scala-spark-hadoop-intelliJIdea/#gsc.tab=0
  
  --Environment variable
- HADOOP_HOME	C:\winutil\
+ HADOOP_HOME	C:\winutil\bin
  
  
  
