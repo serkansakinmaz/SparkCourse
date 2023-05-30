@@ -1,0 +1,9 @@
+https://github.com/steveloughran/winutils/tree/master/hadoop-2.6.0/bin
+
+Download winutils
+
+Copy c:\hadoop\bin\winutil.exe
+
+In spark 
+
+System.setProperty("hadoop.home.dir", "C:\\hadoop")
