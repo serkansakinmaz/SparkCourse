@@ -1,0 +1,17 @@
+1-Case class olustur
+
+case class Person(name:String, email:String, city:String,
+mac:String,timestamp:String,creditCard:String, age:Int)
+
+2 - Encoder olustur
+
+val personEncoder = Encoders.bean(Person.getClass)
+
+
+3 - readstream sonunda .as(personEncoder) metodunu kullan
+
+		Dataset<EcommerceLog> ds = sparkSession.readStream().format("kafka")
+				.option("kafka.bootstrap.servers", "localhost:9092").option("subscribe", "ecommerce_topic").load()
+				.selectExpr("CAST(value AS STRING) as message")
+				.select(functions.from_json(functions.col("message"), schema).as("json")).select("json.*")
+				.as(Encoders.bean(EcommerceLog.class));
