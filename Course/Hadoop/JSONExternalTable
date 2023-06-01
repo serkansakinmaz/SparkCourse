@@ -1,0 +1,5 @@
+ hive> CREATE EXTERNAL TABLE tweetdata3 (
+    >   id string,
+    >   person struct<email:string, first_name:string, last_name:string, location:struct<address:string, city:string, state:string, zipcode:string>, text:string, url:string>)
+    > ROW FORMAT SERDE 'org.apache.hive.hcatalog.data.JsonSerDe'
+    > LOCATION '/user/flume/tweets';
