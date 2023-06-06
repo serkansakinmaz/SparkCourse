@@ -19,3 +19,6 @@ Option 1 :
 Option 2 : 
 
 C:\\Users\\testUser\\IdeaProjects\\SparkDataQualityReporting\\SampleData
+
+
+System.setProperty("HADOOP_HOME", "C:\\hadoop")
