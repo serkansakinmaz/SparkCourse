@@ -1,0 +1,26 @@
+package org.example
+
+import org.apache.spark.sql.SparkSession
+
+import org.apache.spark.sql.SparkSession
+import org.apache.log4j.{Level, Logger}
+
+object App2 {
+
+  def main(args: Array[String]): Unit = {
+
+    val rootLogger = Logger.getRootLogger()
+    rootLogger.setLevel(Level.ERROR)
+    Logger.getLogger("org.apache.spark").setLevel(Level.ERROR)
+    Logger.getLogger("org.spark-project").setLevel(Level.ERROR)
+
+
+    val spark = SparkSession.builder.master("local").
+      appName("SparkByExample").getOrCreate()
+    val rdd=spark.sparkContext.textFile("/Users/serkan/Desktop/Training2/data/foo");
+    println("Count : " + rdd.count())
+    println("First : " + rdd.first())
+
+  }
+
+}
