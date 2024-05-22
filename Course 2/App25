@@ -1,0 +1,51 @@
+package org.example
+
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.sql.{Encoders, SaveMode, SparkSession}
+
+import java.util.Properties
+
+private case class Author(id:Int, name:String, email:String)
+
+object App25 {
+
+  def main(args: Array[String]): Unit = {
+
+    val rootLogger = Logger.getRootLogger()
+    rootLogger.setLevel(Level.ERROR)
+    Logger.getLogger("org.apache.spark").setLevel(Level.ERROR)
+    Logger.getLogger("org.spark-project").setLevel(Level.ERROR)
+
+
+    val spark = SparkSession.builder.master("local").
+      appName("SparkByExample").getOrCreate()
+
+    import  spark.implicits._
+
+    val database = "books4"
+    val table = "authors"
+    val user = "root"
+    val password = ""
+    val connectionString = "jdbc:mysql://localhost:3306/" + database
+
+
+    val author3 = new Author(3,"Name3", "name3@gmail.com")
+    val author4 = new Author(3,"Name4", "name4@gmail.com")
+
+    val authorSequence = Seq(author3, author4)
+
+    val personDs = spark.createDataset(authorSequence)
+
+    personDs.show()
+
+    val connectionProp = new Properties();
+    connectionProp.put("user",user)
+    connectionProp.put("password",password)
+
+    personDs.write.mode(SaveMode.Overwrite).jdbc(connectionString, table, connectionProp);
+
+
+
+    }
+
+}
