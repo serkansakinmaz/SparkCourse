@@ -1,0 +1,60 @@
+package org.example
+
+import org.apache.spark.ml.recommendation.ALS
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.sql.SparkSession
+
+private case class Rating(userId:Int, movieId:Int, rating:Double)
+
+
+object App31 {
+
+  def main(args: Array[String]): Unit = {
+
+    val rootLogger = Logger.getRootLogger()
+    rootLogger.setLevel(Level.ERROR)
+    Logger.getLogger("org.apache.spark").setLevel(Level.ERROR)
+    Logger.getLogger("org.spark-project").setLevel(Level.ERROR)
+
+
+    val spark = SparkSession.builder.master("local").
+      appName("SparkStreaming").getOrCreate()
+    import spark.implicits._
+
+    val lineRdd = spark.sparkContext.textFile("/Users/serkan/Desktop/Course/Spark/data/ratings.csv")
+
+    println("Line Count: " + lineRdd.count())
+    println("Line First: " + lineRdd.first())
+
+    val ratingRdd = lineRdd.map( line=> {
+      val arr = line.split(",")
+      val userId = arr(0).toInt
+      val movieId = arr(1).toInt
+      val rating = arr(2).toDouble
+      Rating(userId, movieId, rating)
+    })
+
+    println("Rating Count: " + ratingRdd.count())
+    println("Rating First: " + ratingRdd.first())
+
+    val arr = ratingRdd.randomSplit(Array(0.9, 0.1))
+    val trainingDf = arr(0).toDF();
+
+    //create model
+    val als = new ALS().setUserCol("userId").setItemCol("movieId").setRatingCol("rating");
+
+    //train model
+    val model = als.fit(trainingDf);
+
+    //use model
+    val recommendationDf = model.recommendForAllUsers(5)
+
+    recommendationDf.foreach(row => {
+      println(row)
+    })
+
+    System.in.read()
+    spark.stop()
+  }
+
+}
