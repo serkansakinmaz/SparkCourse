@@ -1,0 +1,38 @@
+package org.example
+
+import org.apache.log4j.{Level, Logger}
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.types.{IntegerType, StringType, StructField, StructType}
+
+
+object App30 {
+
+  def main(args: Array[String]): Unit = {
+
+    val rootLogger = Logger.getRootLogger()
+    rootLogger.setLevel(Level.ERROR)
+    Logger.getLogger("org.apache.spark").setLevel(Level.ERROR)
+    Logger.getLogger("org.spark-project").setLevel(Level.ERROR)
+
+
+    val spark = SparkSession.builder.master("local").
+      appName("SparkStreaming").getOrCreate()
+    import spark.implicits._
+
+    val df = spark.readStream.format("socket").
+      option("host","localhost").option("port",9999).load()
+
+    val wordDf = df.flatMap(row =>{
+      row.getString(0).split(" ")
+    })
+
+    val countDf = wordDf.groupBy("value").count()
+
+    val query = countDf.writeStream.outputMode("complete").
+      format("console").start()
+
+    query.awaitTermination()
+
+  }
+
+}
